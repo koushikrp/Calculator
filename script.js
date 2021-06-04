@@ -37,20 +37,34 @@ let firstNumber = '',secondNumber = '',curOperator='';
 
 
 function addNumberToDisplay(e){
+    display.style.transform = 'scaleX(1.1)';
     if(curOperator===''){
         if(e.target.textContent=='.'){
             if(firstNumber.includes('.')) return;
         }
-        firstNumber += e.type=='click'?e.target.textContent:e.key;
-        display.textContent = firstNumber;
+        if(e.target.textContent=='r'){
+            let rand = Math.floor(Math.random()*10).toString();
+            firstNumber += rand;
+            display.textContent = firstNumber;
+        }
+        else{
+            firstNumber += e.type=='click'?e.target.textContent:e.key;
+            display.textContent = firstNumber;
+        }
     }
     else{
         if(e.target.textContent=='.'){
             if(secondNumber.includes('.')) return;
         }
+        if(e.target.textContent=='r'){
+            let rand = Math.floor(Math.random()*10).toString();
+            secondNumber += rand;
+            display.textContent = secondNumber;
+        }
         secondNumber += e.type=='click'?e.target.textContent:e.key;
         display.textContent += e.type=='click'?e.target.textContent:e.key;
     }
+    e.target.stopTransmission();
 }
 
 function addOperatorToDisplay(e){
@@ -99,13 +113,14 @@ function removeLastChar(e){
     display.textContent = display.textContent.slice(0,display.textContent.length-1);
 }
 function addKeyboardSupport(e){
+    display.style.transform = 'scaleX(1.1)';
     if(e.key==='+'||e.key==='-'||e.key==='*'||e.key==='/'||e.key==='%'){
         addOperatorToDisplay(e);
     }
-    else if(e.keyCode==8){
+    else if(e.keyCode===8){
         removeLastChar(e);
     }
-    else if(e.key=='=' || e.keyCode==13){
+    else if(e.key==='=' || e.keyCode===13){
         evaluateCurExpression(e);
     }
     else if(e.keyCode>=48 && e.keyCode<=57) addNumberToDisplay(e);
@@ -113,7 +128,7 @@ function addKeyboardSupport(e){
 
 
 
-display.addEventListener('keydown',addKeyboardSupport);
+document.addEventListener('keydown',addKeyboardSupport);
 numbers.forEach( number =>{
     number.addEventListener('click',addNumberToDisplay);
 }
@@ -138,6 +153,7 @@ clear.addEventListener('click',() =>{
     secondNumber = '';
     curOperator = '';
     errorMsg.remove();
+    display.style.transform = 'scaleX(1)';
 }    
 );
 
