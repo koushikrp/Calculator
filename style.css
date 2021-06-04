@@ -1,0 +1,31 @@
+*{
+    box-sizing: border-box;
+    margin: 0px;
+}
+main{
+    border: 1px solid hsl(0, 0%, 75%);
+    box-shadow: 5px 5px 10px 5px #888888;
+    padding: 5px;
+    position: absolute;
+    top: 25%;
+    left: 30%;
+}
+button{
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+}
+.display{
+    margin: 1em;
+    border: 1px solid black;
+    text-align: end;
+    padding: 8px;
+    outline: none;
+}
+.display:empty:before{
+    content: attr(data-placeholder);
+    color: gray;
+}
+p{
+    text-align: end;
+}
